@@ -41,11 +41,17 @@ export function renderHistoryList() {
       const detail = store.detailList[dateId];
       if (!detail?.length) return "";
 
+      const today = new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
       return `<article class="history-per-day">
-      <p class="history-date">2021년 12월 1일</p>
+      <p class="history-date">${today}</p>
       ${detail
         .sort((a, b) => b.id - a.id)
-        .map(({ createAt, description, category, amount, fundsAtTheTime }) => {
+        .map(({ id, createAt, description, category, amount, fundsAtTheTime }) => {
           const time = new Date(createAt).toLocaleTimeString("ko-KR", {
             timeStyle: "short",
             hourCycle: "h24",
@@ -67,7 +73,7 @@ export function renderHistoryList() {
               </div>
             </div>
             <div class="delete-section">
-              <button class="delete-button">🗑</button>
+              <button class="delete-button" data-dateid="${dateId}" data-itemid="${id}">🗑</button>
             </div>
           </section>
           <section class="history-item-caption">
