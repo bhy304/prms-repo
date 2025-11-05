@@ -44,6 +44,7 @@ export function renderHistoryList() {
       return `<article class="history-per-day">
       <p class="history-date">2021년 12월 1일</p>
       ${detail
+        .sort((a, b) => b.id - a.id)
         .map(({ createAt, description, category, amount, fundsAtTheTime }) => {
           const time = new Date(createAt).toLocaleTimeString("ko-KR", {
             timeStyle: "short",
